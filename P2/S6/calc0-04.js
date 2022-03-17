@@ -2,6 +2,9 @@ console.log("Ejecutando JS...");
 
 display = document.getElementById("display")
 suma = document.getElementById("suma")
+resta = document.getElementById("resta")
+multiplicacion = document.getElementById("multiplicacion")
+division = document.getElementById("division")
 igual = document.getElementById("igual")
 clear = document.getElementById("clear")
 
@@ -33,23 +36,29 @@ function digito(ev)
         //-- Pasar al siguiente estado
         estado = ESTADO.OP1;
 
-    } else {
+    } else if (estado == ESTADO.OPERATION) {
        
-        //--En cualquier otro estado lo añadimos
         display.innerHTML += ev.target.value;
-
-        //-- Y nos quedamos en el mismo estado
-        //-- Ojo! Este ejemplo sólo implementa el primer
-        //-- estado del diagrama. Habría que tener en 
-        //-- cuenta el resto... lo debes hacer en tu práctica
-    } 
+        estado = ESTADO.OP2
+    } else {
+        display.innerHTML += ev.target.value;
+    }
     
 }
 
+function calc(ev) {
 
+    if (estado == ESTADO.INIT) {
+        display.innerHTML = ev.target.value;
+        estado = ESTADO.OPERATION;
+    } else {
+        display.innerHTML += ev.target.value;
+    }
+}
 //-- Obtener una colección con todos los elementos
 //-- de la clase digito
 digitos = document.getElementsByClassName("digito")
+calcs = document.getElementsByClassName("calc")
 
 //-- Establecer la misma función de retrollamada
 //-- para todos los botones de tipo dígito
@@ -62,6 +71,9 @@ for (let boton of digitos) {
     boton.onclick = digito;
 }
 
+for (let boton of calcs) {
+    boton.onclick = calc;
+}
 //-------- Resto de funciones de retrollamada
 
 //-- Operación de sumar
@@ -78,10 +90,27 @@ suma.onclick = (ev) => {
   
 }
 
+resta.onclick = (ev) => {
+    display.innerHTML += ev.target.value;
+}
+
+multiplicacion.onclick = (ev) => {
+    display.innerHTML += ev.target.value;
+}
+
+division.onclick = (ev) => {
+    display.innerHTML += ev.target.value;
+}
+
+coma.onclick = (ev) => {
+    display.innerHTML += ev.target.value;
+
+}
 //-- Evaluar la expresion
 igual.onclick = () => {
   
     //-- Calcular la expresión y añadirla al display
+    Math.round();
     display.innerHTML = eval(display.innerHTML);
 
     //-- ¡Ojo! Aquí se hace siempre!
