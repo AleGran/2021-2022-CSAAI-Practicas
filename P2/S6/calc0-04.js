@@ -7,6 +7,8 @@ multiplicacion = document.getElementById("multiplicacion")
 division = document.getElementById("division")
 igual = document.getElementById("igual")
 clear = document.getElementById("clear")
+digitos = document.getElementsByClassName("digito")
+calcs = document.getElementsByClassName("calc")
 
 //-- Estados de la calculadora
 const ESTADO = {
@@ -42,23 +44,23 @@ function digito(ev)
         estado = ESTADO.OP2
     } else {
         display.innerHTML += ev.target.value;
-    }
+    }console.log(estado)
     
 }
 
 function calc(ev) {
 
     if (estado == ESTADO.INIT) {
-        display.innerHTML = ev.target.value;
+        display.innerHTML += ev.target.value;
         estado = ESTADO.OPERATION;
     } else {
         display.innerHTML += ev.target.value;
     }
+    console.log(estado)
 }
 //-- Obtener una colección con todos los elementos
 //-- de la clase digito
-digitos = document.getElementsByClassName("digito")
-calcs = document.getElementsByClassName("calc")
+
 
 //-- Establecer la misma función de retrollamada
 //-- para todos los botones de tipo dígito
@@ -77,7 +79,7 @@ for (let boton of calcs) {
 //-------- Resto de funciones de retrollamada
 
 //-- Operación de sumar
-suma.onclick = (ev) => {
+calcSuma.onclick = (ev) => {
 
     //-- Insertar simbolo de sumar
     display.innerHTML += ev.target.value;
@@ -90,15 +92,15 @@ suma.onclick = (ev) => {
   
 }
 
-resta.onclick = (ev) => {
+calcResta.onclick = (ev) => {
     display.innerHTML += ev.target.value;
 }
 
-multiplicacion.onclick = (ev) => {
+calcMultiplicacion.onclick = (ev) => {
     display.innerHTML += ev.target.value;
 }
 
-division.onclick = (ev) => {
+calcDivision.onclick = (ev) => {
     display.innerHTML += ev.target.value;
 }
 
@@ -112,6 +114,7 @@ igual.onclick = () => {
     //-- Calcular la expresión y añadirla al display
     Math.round();
     display.innerHTML = eval(display.innerHTML);
+    estado = ESTADO.INIT;
 
     //-- ¡Ojo! Aquí se hace siempre!
     //-- Sólo se debe permitar que eso se haga
