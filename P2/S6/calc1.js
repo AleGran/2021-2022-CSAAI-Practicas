@@ -44,8 +44,8 @@ function digito(ev)
         estado = ESTADO.OP2
     } else {
         display.innerHTML += ev.target.value;
-    }console.log(estado)
-    
+    }
+    console.log(estado)
 }
 
 function calc(ev) {
@@ -53,8 +53,12 @@ function calc(ev) {
     if (estado == ESTADO.INIT) {
         display.innerHTML += ev.target.value;
         estado = ESTADO.OPERATION;
-    } else {
+    } else if (estado == ESTADO.OP1) {
         display.innerHTML += ev.target.value;
+        estado = ESTADO.OPERATION;
+    } else if (estado == ESTADO.OP2) {
+        display.innerHTML += ev.target.value;
+        estado = ESTADO.OPERATION;
     }
     console.log(estado)
 }
@@ -76,38 +80,7 @@ for (let boton of digitos) {
 for (let boton of calcs) {
     boton.onclick = calc;
 }
-//-------- Resto de funciones de retrollamada
 
-//-- Operación de sumar
-//calcSuma.onclick = (ev) => {
-
-    //-- Insertar simbolo de sumar
-    //display.innerHTML += ev.target.value;
-
-    //-- ¡Ojo! Aquí se inserta el + siempre!
-    //-- Para que la calculadora funcione bien
-    //-- sólo se debe permitir insertar el operador
-    //-- en el estado OP1, y debe cambiar el estado
-    //-- a OPERATION (según el diagrama de estados)
-  
-//}
-
-// calcResta.onclick = (ev) => {
-    // display.innerHTML += ev.target.value;
-// }
-
-// calcMultiplicacion.onclick = (ev) => {
-    // display.innerHTML += ev.target.value;
-// }
-
-// calcDivision.onclick = (ev) => {
-    // display.innerHTML += ev.target.value;
-// }
-
-// coma.onclick = (ev) => {
-    // display.innerHTML += ev.target.value;
-
-// }
 //-- Evaluar la expresion
 igual.onclick = () => {
   
