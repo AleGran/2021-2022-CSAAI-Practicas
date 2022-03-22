@@ -9,7 +9,6 @@ igual = document.getElementById("igual")
 clear = document.getElementById("clear")
 digitos = document.getElementsByClassName("digito")
 calcs = document.getElementsByClassName("calc")
-del = document.getElementById("delete")
 
 //-- Estados de la calculadora
 const ESTADO = {
@@ -58,7 +57,8 @@ function calc(ev) {
         display.innerHTML += ev.target.value;
         estado = ESTADO.OPERATION;
     } else if (estado == ESTADO.OP2) {
-
+        display.innerHTML += ev.target.value;
+        estado = ESTADO.OPERATION;
     }
     console.log(estado)
 }
@@ -81,10 +81,6 @@ for (let boton of calcs) {
     boton.onclick = calc;
 }
 
-del.onclick = () => {
-    display.innerHTML.substring(0, display.innerHTML.length - 1);
-
-}
 //-- Evaluar la expresion
 igual.onclick = () => {
   
