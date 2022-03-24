@@ -71,12 +71,17 @@ function borrar() {
         displayBorrado = display.innerHTML.substring(0, display.innerHTML.length - 1);
         display.innerHTML = displayBorrado;
         estado = ESTADO.OP1;
-    
+        
     } else if (estado == ESTADO.INIT) {
         display.innerHTML = "0";
     } else {
         displayBorrado = display.innerHTML.substring(0, display.innerHTML.length - 1);
         display.innerHTML = displayBorrado;
+        try {
+            display.innerHTML.length >= 1;
+        } catch (error) {
+            display.innerHTML = "0";
+        }
     }
     console.log(estado)
     x = true;
