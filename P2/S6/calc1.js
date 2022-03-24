@@ -1,15 +1,12 @@
 console.log("Ejecutando JS...");
 
 display = document.getElementById("display")
-suma = document.getElementById("suma")
-resta = document.getElementById("resta")
-multiplicacion = document.getElementById("multiplicacion")
-division = document.getElementById("division")
 igual = document.getElementById("igual")
 clear = document.getElementById("clear")
 digitos = document.getElementsByClassName("digito")
 calcs = document.getElementsByClassName("calc")
-del = document.getElementById("delete")
+borrado = document.getElementById("borrado")
+
 
 //-- Estados de la calculadora
 const ESTADO = {
@@ -62,9 +59,30 @@ function calc(ev) {
     }
     console.log(estado)
 }
-//-- Obtener una colección con todos los elementos
-//-- de la clase digito
 
+function borrar() {
+    
+     try {
+        eval(display.innerHTML);
+     } catch (error) {
+        estado = ESTADO.OPERATION
+     }
+    if (estado == ESTADO.OPERATION) {
+        displayBorrado = display.innerHTML.substring(0, display.innerHTML.length - 1);
+        display.innerHTML = displayBorrado;
+        estado = ESTADO.OP1;
+    
+    } else if (estado == ESTADO.INIT) {
+        display.innerHTML = "0";
+    } else {
+        displayBorrado = display.innerHTML.substring(0, display.innerHTML.length - 1);
+        display.innerHTML = displayBorrado;
+    }
+    console.log(estado)
+    x = true;
+}
+
+borrado.onclick = borrar;
 
 //-- Establecer la misma función de retrollamada
 //-- para todos los botones de tipo dígito
@@ -81,10 +99,8 @@ for (let boton of calcs) {
     boton.onclick = calc;
 }
 
-del.onclick = () => {
-    display.innerHTML.substring(0, display.innerHTML.length - 1);
 
-}
+
 //-- Evaluar la expresion
 igual.onclick = () => {
   
@@ -105,3 +121,4 @@ clear.onclick = () => {
   display.innerHTML = "0";
   estado = ESTADO.INIT;
 }
+
