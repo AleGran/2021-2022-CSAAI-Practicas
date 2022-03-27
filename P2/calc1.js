@@ -61,7 +61,7 @@ function calc(ev) {
 }
 
 function borrar() {
-    
+    x = 0;
      try {
         eval(display.innerHTML);
      } catch (error) {
@@ -72,19 +72,17 @@ function borrar() {
         display.innerHTML = displayBorrado;
         estado = ESTADO.OP1;
         
-    } else if (estado == ESTADO.INIT) {
+    } else if (estado == ESTADO.INIT && display.innerHTML.length == 1) {
         display.innerHTML = "0";
+    } else if (estado == ESTADO.OP1 && display.innerHTML.length == 1){
+        display.innerHTML = "0";
+        estado = ESTADO.INIT;
+
     } else {
         displayBorrado = display.innerHTML.substring(0, display.innerHTML.length - 1);
         display.innerHTML = displayBorrado;
-        try {
-            display.innerHTML.length >= 1;
-        } catch (error) {
-            display.innerHTML = "0";
-        }
-    }
     console.log(estado)
-    x = true;
+    }
 }
 
 borrado.onclick = borrar;
