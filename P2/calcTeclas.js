@@ -130,6 +130,9 @@ document.onkeydown = function (ev) {
             digito;
         case 5:
             digito;
+
+
+        
     }
     console.log(ev.key);
 }
@@ -141,4 +144,3 @@ clear.onclick = () => {
   display.innerHTML = "0";
   estado = ESTADO.INIT;
 }
-
