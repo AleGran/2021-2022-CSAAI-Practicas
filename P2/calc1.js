@@ -118,22 +118,6 @@ igual.onclick = () => {
   
 }
 
-document.onkeydown = function (ev) {
-    switch(ev.key) {
-        case 1: 
-            digito;
-        case 2:
-            digito;
-        case 3:
-            digito;
-        case 4:
-            digito;
-        case 5:
-            digito;
-    }
-    console.log(ev.key);
-}
-
 
 //-- Poner a cero la expresion
 //-- Y volver al estado inicial
