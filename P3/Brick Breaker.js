@@ -1,11 +1,5 @@
 const canvas = document.getElementById("canvas");
 
-const ESTADO = {
-    Play: 0,
-    Pause: 1,
-}
- let estado = ESTADO.Play;
-
 //-- Definir el tamaño del canvas
 canvas.width = 693;
 canvas.height = 900;
@@ -19,8 +13,45 @@ let x = 346;
 let y = 850;
 
 //-- Velocidades del objeto
-let velx = a;
-let vely = b;
+let velx = 0;
+let vely = 0;
+
+
+ const LADRILLO = {
+    F: 5,   //-- Filas
+    C: 9,   //-- Columnas
+    w: 73,  //-- Anchura
+    h: 35,  //-- Altura
+    x_0: 6,
+    y_0: 100,
+    padding: 3,  //-- Espacio alrededor del ladrillo
+    visible: true //-- Estado del ladrillo: activo o no
+  }
+
+//-- Creación de los ladrillos. La estructura se almacena 
+//-- en el objeto ladrillos, que inicialmente está vacío
+const ladrillos = [];
+
+    //-- Recorrer todas las filas. La variable i toma valores de 0 hasta F-1 (número de filas)
+    for (let i = 0; i < LADRILLO.F; i++) {
+        ladrillos[i] = [];  //-- Inicializar la fila. Las filas son a su vez Arrays que inicialmente están vacíos
+
+    //-- Recorrer las C columnas de la fila i. La variable j toma valores de 0 hasta C-1 (numero de columnas)
+    for (let j = 0; j < LADRILLO.C; j++) {
+
+        //-- Calcular valores para el ladrillo de la fila i y la columna j
+        //-- Algunos valores son constates. Otros depeden de i y j
+        ladrillos[i][j] = {
+            x: (LADRILLO.w + LADRILLO.padding) * j + LADRILLO.x_0,
+            y: (LADRILLO.h + LADRILLO.padding) * i + LADRILLO.y_0,
+            w: LADRILLO.w,
+            h: LADRILLO.h,
+            padding: LADRILLO.padding,
+            visible: LADRILLO.visible
+        };  
+    }
+}
+
 
 
 window.onkeydown = (e) => {
@@ -33,16 +64,19 @@ window.onkeydown = (e) => {
         x = 346;
         y = 850;
         console.log("Restart");
-    } else if (velx != 0 && vely != 0 && e.key == 'Escape' && estado == ESTADO.Play) {
+    } else if (velx != 0 && vely != 0 && e.key == 'Escape') {
+        a = velx;
+        b = vely;
         velx = 0;
         vely = 0;
-        estado = ESTADO.Pause;
         console.log("Pause");
-    } else if (velx == 0 && vely == 0 && e.key == 'Escape' && estado == ESTADO.Pause) {
+    } else if (velx == 0 && vely == 0 && x != 346 && y != 850 && e.key == 'Escape') {
         velx = a;
         vely = b;
-        estado = ESTADO.Play;
         console.log("Resume");
+    } else if (x == 346 && y == 850 && e.key == 'Escape') {
+        velx = 0;
+        vely = 0;
     }
     console.log(e.key);
 }
@@ -64,66 +98,25 @@ function update() {
     //-- 2) Borrar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    //-- 3) Dibujar los elementos visibles
-    ctx.beginPath();
-        ctx.rect(x, y, 20, 20); // Bola
-        ctx.rect(5, 5, 75, 40);
-        ctx.rect(81, 5, 75, 40);
-        ctx.rect(157, 5, 75, 40);
-        ctx.rect(233, 5, 75, 40);
-        ctx.rect(309, 5, 75, 40);
-        ctx.rect(385, 5, 75, 40);
-        ctx.rect(461, 5, 75, 40);
-        ctx.rect(537, 5, 75, 40);
-        ctx.rect(613, 5, 75, 40);
-        ctx.rect(5, 45, 75, 40);
-        ctx.rect(81, 45, 75, 40);
-        ctx.rect(157, 45, 75, 40);
-        ctx.rect(233, 45, 75, 40);
-        ctx.rect(309, 45, 75, 40);
-        ctx.rect(385, 45, 75, 40);
-        ctx.rect(461, 45, 75, 40);
-        ctx.rect(537, 45, 75, 40);
-        ctx.rect(613, 45, 75, 40);
-        ctx.rect(5, 85, 75, 40);
-        ctx.rect(81, 85, 75, 40);
-        ctx.rect(157, 85, 75, 40);
-        ctx.rect(233, 85, 75, 40);
-        ctx.rect(309, 85, 75, 40);
-        ctx.rect(385, 85, 75, 40);
-        ctx.rect(461, 85, 75, 40);
-        ctx.rect(537, 85, 75, 40);
-        ctx.rect(613, 85, 75, 40);
-        ctx.rect(5, 125, 75, 40);
-        ctx.rect(81, 125, 75, 40);
-        ctx.rect(157, 125, 75, 40);
-        ctx.rect(233, 125, 75, 40);
-        ctx.rect(309, 125, 75, 40);
-        ctx.rect(385, 125, 75, 40);
-        ctx.rect(461, 125, 75, 40);
-        ctx.rect(537, 125, 75, 40);
-        ctx.rect(613, 125, 75, 40);
-        ctx.rect(5, 165, 75, 40);
-        ctx.rect(81, 165, 75, 40);
-        ctx.rect(157, 165, 75, 40);
-        ctx.rect(233, 165, 75, 40);
-        ctx.rect(309, 165, 75, 40);
-        ctx.rect(385, 165, 75, 40);
-        ctx.rect(461, 165, 75, 40);
-        ctx.rect(537, 165, 75, 40);
-        ctx.rect(613, 165, 75, 40);
-        
-        
+    //-- Dibujar ladrillos
+    for (let i = 0; i < LADRILLO.F; i++) {
+        for (let j = 0; j < LADRILLO.C; j++) {
 
-    //-- Dibujar
-    ctx.fillStyle = 'white';
+            if (x == (ladrillos[i][j].x + 20)){
+                ladrillos[i][j].visible = false;
+            };
+            //-- Si el ladrillo es visible se pinta
+            if (ladrillos[i][j].visible) {
 
-    //-- Rellenar
-    ctx.fill();
-
-    //-- Dibujar el trazo
-    ctx.stroke()
-    ctx.closePath();
+            ctx.beginPath();
+            ctx.rect(x, y, 20, 20); // Bola
+            ctx.rect(ladrillos[i][j].x, ladrillos[i][j].y, LADRILLO.w, LADRILLO.h);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+}
 
     //-- 4) Volver a ejecutar update cuando toque
     requestAnimationFrame(update);
