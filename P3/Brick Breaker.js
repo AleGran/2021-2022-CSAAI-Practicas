@@ -63,6 +63,7 @@ window.onkeydown = (e) => {
         vely = 0;
         x = 346;
         y = 850;
+        ladrillos[i][j].visible = true;
         console.log("Restart");
     } else if (velx != 0 && vely != 0 && e.key == 'Escape') {
         a = velx;
@@ -102,11 +103,20 @@ function update() {
     for (let i = 0; i < LADRILLO.F; i++) {
         for (let j = 0; j < LADRILLO.C; j++) {
 
-            if (x == (ladrillos[i][j].x + 20)){
+            if (x <= (ladrillos[i][j].x + 73) && x > (ladrillos[i][j].x) && y <= (ladrillos[i][j].y + 35) && ladrillos[i][j].visible == true){
+                vely = -vely;
                 ladrillos[i][j].visible = false;
-            };
+            
+            } else if (y <= (ladrillos[i][j].y + 35) && y > (ladrillos[i][j].y) && x <= (ladrillos[i][j].x) && ladrillos[i][j].visible == true){
+                velx = -velx;
+                ladrillos[i][j].visible = false;
+            }
+        }
+    }
+    for (let i = 0; i < LADRILLO.F; i++) {
+        for (let j = 0; j < LADRILLO.C; j++) {
             //-- Si el ladrillo es visible se pinta
-            if (ladrillos[i][j].visible) {
+            if (ladrillos[i][j].visible == true) {
 
             ctx.beginPath();
             ctx.rect(x, y, 20, 20); // Bola
