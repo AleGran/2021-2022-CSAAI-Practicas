@@ -10,6 +10,8 @@ const deslizadorRojo = document.getElementById('deslizadorRojo');
 const deslizadorVerde = document.getElementById('deslizadorVerde');
 const deslizadorAzul = document.getElementById('deslizadorAzul');
 const grises = document.getElementById('grises');
+const negativos= document.getElementById('negativos')
+const reset = document.getElementById('reset');
 var i = 0;
 
 
@@ -22,8 +24,6 @@ const range_value = document.getElementById('range_value');
 //-- que esté totalmente cargada
 img.onload = function () {
 
-  //-- Se establece como tamaño del canvas el mismo
-  //-- que el de la imagen original
   canvas.width = img.width;
   canvas.height = img.height;
 
@@ -123,7 +123,7 @@ grises.onclick = () => {
 
   ctx.drawImage(img, 0,0);
     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    let data = imgData.data
+    let data = imgData.data;
 
     for (var i = 0; i < data.length; i+=4) {
       r = data[i];
@@ -136,6 +136,37 @@ grises.onclick = () => {
     }
     ctx.putImageData(imgData, 0, 0);
   }
+
+negativos.onclick = () => {
+
+  ctx.drawImage(img, 0,0);
+    let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let data = imgData.data;
+  
+    for (var i = 0; i < data.length; i+=4) {
+      r = data[i];
+      g = data[i+1];
+      b = data[i+2];
+        
+      data[i] = 255 - r;
+      data[i+1] = 255 - g;
+      data[i+2] = 255 - b;
+    }
+    ctx.putImageData(imgData, 0, 0);
+  }
+
+reset.onclick = () => {
+  ctx.drawImage(img, 0,0);
+    let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let data = imgData.data;
+    ctx.putImageData(imgData, 0, 0);
+    deslizadorAzul.value = 255;
+    deslizadorRojo.value = 255;
+    deslizadorVerde.value = 255;
+    range_value_azul.innerHTML = deslizadorAzul.value;
+    range_value_rojo.innerHTML = deslizadorRojo.value;
+    range_value_verde.innerHTML = deslizadorVerde.value;
+}
 
 
 console.log("Fin...");
