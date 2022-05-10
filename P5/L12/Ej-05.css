@@ -1,0 +1,62 @@
+body {
+    background-color: grey;
+}
+
+#directo {
+    border-style: solid;
+    padding: 2px;
+    background-color: black;
+    margin-left: 50px;
+}
+
+#video1 {
+    border-style: solid;
+    background-color: black;
+    margin-left: 50px;
+}
+
+#video2 {
+    border-style: solid;
+    background-color: black;
+    margin-left: 15px;
+}
+
+#botones {
+    margin-left: 150px;
+}
+
+.boton {
+    font-size: 50px;
+    margin: 2px 8px 2px 8px;
+    background-color: rgb(175, 175, 175);
+}
+
+#btn_video1 {
+    margin-left: 55px;
+
+}
+
+#Texto{
+    margin-left: 50px;
+    margin-top: 300px;
+}
+
+Texto.value {
+    opacity: 50%;
+}
+
+#btn_youtube {
+    font-size: 20px;
+}
+
+.columna {
+    float: left;
+}
+
+.izquierda {
+    width: 54%;
+}
+
+.derecha {
+    width: 44%;
+}
