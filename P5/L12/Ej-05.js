@@ -28,6 +28,7 @@ video2.height=200;
 
 //-- Imagen de Test usada
 const TEST_IMAGE_URL = "test.png";
+const negro = "negro.jpg";
 
 //-- Imagen estática a mostrar cuando el video no
 //-- ha arrancado
@@ -88,6 +89,14 @@ btn_src_off.onclick = () => {
     video1.poster = TEST_IMAGE_URL;
     video2.poster = TEST_IMAGE_URL;
     directo.src = null;
+    video1.src = null;
+    video2.src = null;
+    estado = Estado.Init;
+}
+
+btn_youtube.onclick = () => {
+    video1.poster = negro;
+    video2.poster = negro;
     video1.src = null;
     video2.src = null;
     estado = Estado.Init;
